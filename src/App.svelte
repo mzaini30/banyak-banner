@@ -1,17 +1,17 @@
 <br>
 <div class="container">
-	<h5 class="text-center">Banyak Banner {orientasi}</h5>
+	<h5 class="text-center">Banyak Banner</h5>
 	<hr>
 	<div class="row">
 		<div class="col-sm-8">
 			<div class="form-group">
 				<p>Orientasi</p>
 				<div class="form-check">
-					<input type="radio" name="orientasi" class="form-check-input" id="portrait" checked group={orientasi} value='portrait'>
+					<input type="radio" name="orientasi" class="form-check-input" id="portrait" bind:group={orientasi} value='portrait'>
 					<label class="form-check-label" for='portrait'>Portrait</label>
 				</div>
 				<div class="form-check">
-					<input type="radio" name="orientasi" class="form-check-input" id="landscape" group={orientasi} value='landscape'>
+					<input type="radio" name="orientasi" class="form-check-input" id="landscape" bind:group={orientasi} value='landscape'>
 					<label class="form-check-label" for='landscape'>Landscape</label>
 				</div>
 			</div>
@@ -42,6 +42,7 @@ https://situs.com/target"></textarea>
 	let hasil
 	let valueHasil = ''
 	let orientasi = 'portrait'
+	let data = []
 	onMount(() => {
 		if (localStorage.banyakBanner) {
 			valueIsian = localStorage.banyakBanner
@@ -59,7 +60,33 @@ generator: mzaini30.js.org/banyak-banner
 
 ${valueIsian}
 
--->`
+-->
+<style>
+	img {
+		max-width: 100%;
+	}
+</style>
+`
+		data = valueIsian.split('\n')
+		if (orientasi == 'portrait'){
+			for (let n = 0; n < data.length; n += 3){
+				valueHasil += `<center>
+	<a href='${data[n + 1]}' target='_blank'>
+		<img src='${data[n]}'>
+	</a>
+</center>`
+			}
+		} else if (orientasi == 'landscape'){
+			valueHasil += `<table><tr>`
+			for (let n = 0; n < data.length; n += 3){
+				valueHasil += `<td>
+	<a href='${data[n + 1]}' target='_blank'>
+		<img src='${data[n]}'>
+	</a>
+</td>`
+			}
+			valueHasil += `</tr></table>`
+		}
 		localStorage.setItem('banyakBanner', valueIsian)
 	}
 </script>
