@@ -1,8 +1,12 @@
 {
   "version": 3,
   "file": "bundle.css",
-  "sources": [],
-  "sourcesContent": [],
+  "sources": [
+    "App.svelte"
+  ],
+  "sourcesContent": [
+    "<br>\n<div class=\"container\">\n\t<h5 class=\"text-center\">Banyak Banner {orientasi}</h5>\n\t<hr>\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-8\">\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<p>Orientasi</p>\n\t\t\t\t<div class=\"form-check\">\n\t\t\t\t\t<input type=\"radio\" name=\"orientasi\" class=\"form-check-input\" id=\"portrait\" checked group={orientasi} value='portrait'>\n\t\t\t\t\t<label class=\"form-check-label\" for='portrait'>Portrait</label>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"form-check\">\n\t\t\t\t\t<input type=\"radio\" name=\"orientasi\" class=\"form-check-input\" id=\"landscape\" group={orientasi} value='landscape'>\n\t\t\t\t\t<label class=\"form-check-label\" for='landscape'>Landscape</label>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label for=\"kumpulan-link\">Kumpulan link</label>\n\t\t\t\t<textarea bind:this={isian} class=\"form-control\" bind:value={valueIsian} id=\"kumpulan-link\" placeholder=\"https://situs.com/gambarnya.jpg\nhttps://situs.com/target\n\nhttps://situs.com/gambarnya.jpg\nhttps://situs.com/target\"></textarea>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-sm-4\">\n\t\t\t<p>Kode hasilnya</p>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<textarea class=\"form-control\" rows='5' readonly bind:value={valueHasil}></textarea>\n\t\t\t</div>\n\t\t\t<p>Preview</p>\n\t\t\t<div class=\"hasil\" bind:this={hasil}>{@html valueHasil}</div>\n\t\t</div>\n\t</div>\n</div>\n\n<script type=\"text/javascript\">\n\timport {onMount} from 'svelte'\n\tlet isian\n\tlet valueIsian\n\tlet hasil\n\tlet valueHasil = ''\n\tlet orientasi = 'portrait'\n\tonMount(() => {\n\t\tif (localStorage.banyakBanner) {\n\t\t\tvalueIsian = localStorage.banyakBanner\n\t\t}\n\t\tconst ubahUkuran = () => {\n\t\t\tisian.style.height = `${window.innerHeight - 250}px`\n\t\t\thasil.style.height = `${window.innerHeight - 360}px`\n\t\t}\n\t\tubahUkuran()\n\t\twindow.addEventListener('resize', ubahUkuran)\n\t})\n\t$: if (valueIsian){\n\t\tvalueHasil = `<!--\ngenerator: mzaini30.js.org/banyak-banner\n\n${valueIsian}\n\n-->`\n\t\tlocalStorage.setItem('banyakBanner', valueIsian)\n\t}\n</script>\n\n<style type=\"text/css\">\n\t.hasil {\n\t\tbackground: #e9ecef;\n\t\twidth: 100%;\n\t\toverflow: auto;\n\t}\n</style>"
+  ],
   "names": [],
-  "mappings": ""
+  "mappings": "AAmEC,MAAM,cAAC,CAAC,AACP,UAAU,CAAE,OAAO,CACnB,KAAK,CAAE,IAAI,CACX,QAAQ,CAAE,IAAI,AACf,CAAC"
 }
