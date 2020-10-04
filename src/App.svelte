@@ -1,17 +1,17 @@
 <br>
 <div class="container">
-	<h5 class="text-center">Banyak Banner</h5>
+	<h5 class="text-center">Banyak Banner {orientasi}</h5>
 	<hr>
 	<div class="row">
 		<div class="col-sm-8">
 			<div class="form-group">
 				<p>Orientasi</p>
 				<div class="form-check">
-					<input type="radio" name="orientasi" class="form-check-input" id="portrait" checked>
+					<input type="radio" name="orientasi" class="form-check-input" id="portrait" checked group={orientasi} value='portrait'>
 					<label class="form-check-label" for='portrait'>Portrait</label>
 				</div>
 				<div class="form-check">
-					<input type="radio" name="orientasi" class="form-check-input" id="landscape">
+					<input type="radio" name="orientasi" class="form-check-input" id="landscape" group={orientasi} value='landscape'>
 					<label class="form-check-label" for='landscape'>Landscape</label>
 				</div>
 			</div>
@@ -27,8 +27,10 @@ https://situs.com/target"></textarea>
 		<div class="col-sm-4">
 			<p>Kode hasilnya</p>
 			<div class="form-group">
-				<textarea class="form-control" readonly></textarea>
+				<textarea class="form-control" rows='5' readonly bind:value={valueHasil}></textarea>
 			</div>
+			<p>Preview</p>
+			<div class="hasil" bind:this={hasil}>{@html valueHasil}</div>
 		</div>
 	</div>
 </div>
@@ -37,14 +39,35 @@ https://situs.com/target"></textarea>
 	import {onMount} from 'svelte'
 	let isian
 	let valueIsian
+	let hasil
+	let valueHasil = ''
+	let orientasi = 'portrait'
 	onMount(() => {
+		if (localStorage.banyakBanner) {
+			valueIsian = localStorage.banyakBanner
+		}
 		const ubahUkuran = () => {
 			isian.style.height = `${window.innerHeight - 250}px`
+			hasil.style.height = `${window.innerHeight - 360}px`
 		}
 		ubahUkuran()
 		window.addEventListener('resize', ubahUkuran)
 	})
 	$: if (valueIsian){
-		
+		valueHasil = `<!--
+generator: mzaini30.js.org/banyak-banner
+
+${valueIsian}
+
+-->`
+		localStorage.setItem('banyakBanner', valueIsian)
 	}
 </script>
+
+<style type="text/css">
+	.hasil {
+		background: #e9ecef;
+		width: 100%;
+		overflow: auto;
+	}
+</style>
